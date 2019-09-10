@@ -5,7 +5,7 @@ export class Snake {
   tail = [new Cell(0, 0), new Cell(1, 0)]
   direction: Direction = 'Right'
   tailSize = 2
-
+  dirchange=true;
   setDirection(direction: Direction) {
     if (this.direction === 'Right' && direction === 'Left'||
     this.direction === 'Left' && direction === 'Right'||
@@ -13,7 +13,10 @@ export class Snake {
     this.direction === 'Up' && direction === 'Down') {
       return
     }
+    if(this.dirchange){
+      this.dirchange=false
     this.direction = direction
+    }
   }
   move() {
     this.tail.push(this.head)
@@ -23,15 +26,19 @@ export class Snake {
     switch (this.direction) {
       case 'Right':
         this.head = new Cell(this.head.x + 1, this.head.y)
+        this.dirchange=true
         break
       case 'Down':
         this.head = new Cell(this.head.x, this.head.y + 1)
+        this.dirchange=true
         break
       case 'Up':
         this.head = new Cell(this.head.x, this.head.y - 1)
+        this.dirchange=true
         break
       case 'Left':
         this.head = new Cell(this.head.x - 1, this.head.y)
+        this.dirchange=true
         break
     }
   }

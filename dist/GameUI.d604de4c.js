@@ -230,6 +230,7 @@ function () {
     this.tail = [new _Cell.Cell(0, 0), new _Cell.Cell(1, 0)];
     this.direction = 'Right';
     this.tailSize = 2;
+    this.dirchange = true;
   }
 
   Snake.prototype.setDirection = function (direction) {
@@ -237,7 +238,10 @@ function () {
       return;
     }
 
-    this.direction = direction;
+    if (this.dirchange) {
+      this.dirchange = false;
+      this.direction = direction;
+    }
   };
 
   Snake.prototype.move = function () {
@@ -250,18 +254,22 @@ function () {
     switch (this.direction) {
       case 'Right':
         this.head = new _Cell.Cell(this.head.x + 1, this.head.y);
+        this.dirchange = true;
         break;
 
       case 'Down':
         this.head = new _Cell.Cell(this.head.x, this.head.y + 1);
+        this.dirchange = true;
         break;
 
       case 'Up':
         this.head = new _Cell.Cell(this.head.x, this.head.y - 1);
+        this.dirchange = true;
         break;
 
       case 'Left':
         this.head = new _Cell.Cell(this.head.x - 1, this.head.y);
+        this.dirchange = true;
         break;
     }
   };
